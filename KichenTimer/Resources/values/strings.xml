@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">KichenTimer</string>
+	<string name="DefaultTime">00:00</string>
+	<string name="action_settings">Settings</string>
+</resources>
