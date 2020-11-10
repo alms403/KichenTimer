@@ -15,6 +15,10 @@ namespace KichenTimer
         private int _remainingMilliSec = 0;
         private bool _isStart = false;
         private Button _startButton;
+        private Button _add10MinButton;
+        private Button _add1MinButton;
+        private Button _add10SecButton;
+        private Button _add1SecButton;
         private Timer _timer;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -25,20 +29,20 @@ namespace KichenTimer
             SetContentView(Resource.Layout.activity_main);
 
             // [+10分]ボタン
-            var add10MinButton = FindViewById<Button>(Resource.Id.Add10MinButton);
-            add10MinButton.Click += Add10MinButton_Click;
+            _add10MinButton = FindViewById<Button>(Resource.Id.Add10MinButton);
+            _add10MinButton.Click += Add10MinButton_Click;
 
             // [+1分]ボタン
-            var add1MinButton = FindViewById<Button>(Resource.Id.Add1MinButton);
-            add1MinButton.Click += Add1MinButton_Click;
+            _add1MinButton = FindViewById<Button>(Resource.Id.Add1MinButton);
+            _add1MinButton.Click += Add1MinButton_Click;
 
             // [+10秒]ボタン
-            var add10SecButton = FindViewById<Button>(Resource.Id.Add10SecButton);
-            add10SecButton.Click += Add10SecButton_Click;
+            _add10SecButton = FindViewById<Button>(Resource.Id.Add10SecButton);
+            _add10SecButton.Click += Add10SecButton_Click;
 
             // [+1秒]ボタン
-            var add1SecButton = FindViewById<Button>(Resource.Id.Add1SecButton);
-            add1SecButton.Click += Add1SecButton_Click;
+            _add1SecButton = FindViewById<Button>(Resource.Id.Add1SecButton);
+            _add1SecButton.Click += Add1SecButton_Click;
 
             // [クリア]ボタン
             var ClearButton = FindViewById<Button>(Resource.Id.ClearButton);
@@ -67,6 +71,10 @@ namespace KichenTimer
                     _isStart = false;
                     _remainingMilliSec = 0;
                     _startButton.Text = "スタート";
+                    _add10MinButton.Enabled = true;
+                    _add1MinButton.Enabled = true;
+                    _add10SecButton.Enabled = true;
+                    _add1SecButton.Enabled = true;
 
                     // アラームを鳴らす
                     var toneGenerator = new ToneGenerator(Stream.System, 100);
@@ -85,10 +93,18 @@ namespace KichenTimer
             if(_isStart)
             {
                 _startButton.Text = "ストップ";
+                _add10MinButton.Enabled = false;
+                _add1MinButton.Enabled = false;
+                _add10SecButton.Enabled = false;
+                _add1SecButton.Enabled = false;
             }
             else
             {
                 _startButton.Text = "スタート";
+                _add10MinButton.Enabled = true;
+                _add1MinButton.Enabled = true;
+                _add10SecButton.Enabled = true;
+                _add1SecButton.Enabled = true;
             }
         }
 
