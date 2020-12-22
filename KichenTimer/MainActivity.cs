@@ -14,6 +14,7 @@ namespace KichenTimer
     {
         private int _remainingMilliSec = 0;
         private bool _isStart = false;
+        private bool _isAlarm = false;
         private Button _startButton;
         private Button _add10MinButton;
         private Button _add1MinButton;
@@ -59,6 +60,12 @@ namespace KichenTimer
         {
             if(!_isStart)
             {
+                if(_isAlarm)
+                {
+                    // アラームを鳴らす
+                    var toneGenerator = new ToneGenerator(Stream.System, 100);
+                    toneGenerator.StartTone(Tone.PropBeep);
+                }
                 return;
             }
 
@@ -79,6 +86,7 @@ namespace KichenTimer
                     // アラームを鳴らす
                     var toneGenerator = new ToneGenerator(Stream.System, 100);
                     toneGenerator.StartTone(Tone.PropBeep);
+                    _isAlarm = true;
                 }
                 ShowRemainingTime();
             });
@@ -110,6 +118,10 @@ namespace KichenTimer
 
         private void ClearButton_Click(object sender, System.EventArgs e)
         {
+            // アラームを止める
+            _isAlarm = false;
+
+            // 残り時間をリセットする
             _remainingMilliSec = 0;
             ShowRemainingTime();
         }
